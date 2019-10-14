@@ -4,6 +4,12 @@ $('#denomSubmit').click(function(event) {
     event.preventDefault();
     $.post('processes/denominate.php', $('#denomForm').serialize(), function(data) {
         clearTableValues();
+        // Clear out existing warnings
+        $('#warnings').html('');
+        if (data.status != null) {
+            $('#warnings').append("<div class='alert alert-danger'>" + data.status + "</div>")
+        }
+
         $('#silverDollar').html(data.ones);
         $('#halfDollar').html(data.halfDollars);
         $('#quarter').html(data.quarters);
